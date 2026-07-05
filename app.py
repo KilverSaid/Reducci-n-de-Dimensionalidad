@@ -11,9 +11,9 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 # Configuración de la página
-st.set_page_config(page_title="MNIST: PCA + K-Means + SVM", page_icon="🔢", layout="wide")
+st.set_page_config(page_title="MNIST: PCA + K-Means + SVM", layout="wide")
 
-st.title("🔢 Pipeline de IA: Reducción, Clusterización y Clasificación (MNIST)")
+st.title("Pipeline de IA: Reducción, Clusterización y Clasificación (MNIST)")
 st.write("Esta aplicación aplica PCA para reducir dimensionalidad, K-Means para agrupar y SVM para clasificar dígitos manuscritos.")
 
 # 1. Cargar el Dataset optimizado
@@ -39,7 +39,7 @@ except FileNotFoundError:
     st.stop()
 
 # --- CONTROLES EN LA BARRA LATERAL ---
-st.sidebar.header("⚙️ Configuración del Pipeline")
+st.sidebar.header("Configuración del Pipeline")
 
 # Selección de Componentes Principales para el entrenamiento de SVM
 n_components = st.sidebar.slider(
@@ -54,7 +54,7 @@ n_clusters = st.sidebar.slider(
 )
 
 # --- PASO 1: APLICACIÓN DE PCA ---
-st.header("📉 1. Reducción de Dimensionalidad (PCA)")
+st.header("1. Reducción de Dimensionalidad (PCA)")
 
 # PCA para visualización fija en 2D
 pca_2d = PCA(n_components=2, random_state=42)
@@ -84,7 +84,7 @@ with col2:
 
 
 # --- PASO 2: IMPLEMENTACIÓN DE K-MEANS ---
-st.header("🧩 2. Aprendizaje No Supervisado (K-Means)")
+st.header("2. Aprendizaje No Supervisado (K-Means)")
 st.write(f"Agrupando los datos proyectados en 2D utilizando **{n_clusters} clústeres**.")
 
 kmeans = KMeans(n_clusters=n_clusters, init='k-means++', random_state=42, n_init=10)
@@ -101,7 +101,7 @@ st.pyplot(fig_km)
 
 
 # --- PASO 3: ENTRENAMIENTO Y EVALUACIÓN DEL MODELO SVM ---
-st.header("🤖 3. Aprendizaje Supervisado (Support Vector Machine)")
+st.header("3. Aprendizaje Supervisado (Support Vector Machine)")
 st.write(f"Entrenando un clasificador SVM (Kernel RBF) utilizando los **{n_components} componentes** del PCA.")
 
 # División del dataset reducido
@@ -139,7 +139,7 @@ with col_met2:
 
 # --- BONUS: PREDICCIÓN INTERACTIVA ---
 st.divider()
-st.header("🎯 4. Prueba el Clasificador en tiempo real")
+st.header("4. Prueba el Clasificador en tiempo real")
 idx_test = st.number_input("Selecciona un índice del conjunto de datos original para clasificar (0 a 7999):", min_value=0, max_value=len(X)-1, value=12)
 
 col_img, col_pred = st.columns(2)
@@ -157,7 +157,7 @@ with col_pred:
     prediccion_individual = svm_model.predict(muestra_reducida)[0]
     
     st.write(f"**Valor Real Etiquetado:** `{y[idx_test]}`")
-    st.write(f"### 🤖 Predicción SVM:  `{prediccion_individual}`")
+    st.write(f"### Predicción SVM:  `{prediccion_individual}`")
     if prediccion_individual == y[idx_test]:
         st.success("¡Predicción Correcta!")
     else:
