@@ -19,9 +19,16 @@ st.write("Esta aplicación aplica PCA para reducir dimensionalidad, K-Means para
 # 1. Cargar el Dataset optimizado
 @st.cache_data
 def cargar_datos():
+    # 1. Leer el archivo CSV
     data = pd.read_csv("mnist_sample.csv")
+    
+    # 2. LIMPIEZA: Eliminar cualquier fila que tenga valores nulos (NaN)
+    data = data.dropna()
+    
+    # 3. Separar características (píxeles) y etiquetas
     X = data.iloc[:, 1:].values / 255.0  # Normalizar píxeles (0-1)
     y = data.iloc[:, 0].values          # Etiquetas (0-9)
+    
     return X, y
 
 try:
