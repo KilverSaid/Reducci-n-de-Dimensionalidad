@@ -138,7 +138,7 @@ with col_met2:
 
 
 # --- BONUS: PREDICCIÓN INTERACTIVA ---
-st.hr()
+st.divider()
 st.header("🎯 4. Prueba el Clasificador en tiempo real")
 idx_test = st.number_input("Selecciona un índice del conjunto de datos original para clasificar (0 a 7999):", min_value=0, max_value=len(X)-1, value=12)
 
